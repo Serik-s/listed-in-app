@@ -8,6 +8,44 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
+import FBSDKLoginKit
+import IQKeyboardManagerSwift
+
+// Names of Storyboards and Controllers
+struct Storyboard {
+    // storyboards
+    static let authorizationAndRegistration = UIStoryboard(name: Constants.login, bundle: nil)
+//    static let profile = UIStoryboard(name: Constants.profile, bundle: nil)
+//    static let mainView = UIStoryboard(name: Constants.mainView, bundle: nil)
+//    // controllers
+    static var mainViewController : UINavigationController {
+        return authorizationAndRegistration.instantiateViewController(withIdentifier: Constants.main) as! UINavigationController
+    }
+//
+    static var authorizationController: UINavigationController {
+        return authorizationAndRegistration.instantiateViewController(withIdentifier: Constants.login) as! UINavigationController
+    }
+//
+//    static var profileController: UINavigationController {
+//        return profile.instantiateViewController(withIdentifier: Constants.profileNC) as! UINavigationController
+//    }
+}
+
+// константы
+private struct Constants {
+    // Storyboard names
+    static let login = "Login"
+//    static let profile = "Profile"
+    static let mainView = "MainView"
+    static let main = "main"
+    // Controller names
+    static let authorizationNC = "Authorization Navigation Controller"
+//    static let wifiInfo = "WiFi Info Controller"
+//    static let profileNC = "Profile Controller"
+    
+    static let tabBarTintColor = UIColor(hex: 0xF4511E)
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,9 +54,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        // настройки Firebase
         FirebaseApp.configure()
+        
+        // facebook настройки
+        FBSDKApplicationDelegate.sharedInstance().application(application,
+                                                              didFinishLaunchingWithOptions: launchOptions)
+        
+        // Google+ настройки
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+        GIDSignIn.sharedInstance().delegate = self as GIDSignInDelegate
+        
+        
+        // настройки умной клавиатуры
+        let keyboardManager = IQKeyboardManager.shared
+        keyboardManager.enable = true
+        keyboardManager.enableAutoToolbar = false
+        keyboardManager.shouldResignOnTouchOutside = true
+        keyboardManager.keyboardDistanceFromTextField = 90
+        
+        // настройки tab bar'а
+        UITabBar.appearance().tintColor = Constants.tabBarTintColor
+        
+        
         // Override point for customization after application launch.
+        
+        window?.rootViewController = Storyboard.authorizationController
+
         return true
+    }
+    
+    // открывает страницу safari в приложении
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        let facebook = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
+        
+        let googlePlus = GIDSignIn.sharedInstance().handle(url,
+                                                           sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
+                                                           annotation: [:])
+        
+        return facebook || googlePlus
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -43,6 +118,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+}
 
+extension AppDelegate: GIDSignInDelegate {
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+        print("Google sign delegate")
+        print(user.profile)
+        print(user)
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        
+    }
 }
 
