@@ -19,6 +19,7 @@ struct User: Mappable, Codable {
     var fullName = ""
     var email = ""
     var photoURL: URL?
+    var userType = ""
 //    var providers: [String] = []
 //    var userSettings = UserSettings.defaultSettings
     
@@ -29,6 +30,7 @@ struct User: Mappable, Codable {
         fullName <- map["full_name"]
         email <- map["email"]
         photoURL <- (map["photoURL"], URLTransform(shouldEncodeURLString: false))
+        userType <- map["userType"]
     }
     
     // авторизация через facebook
@@ -137,6 +139,7 @@ struct User: Mappable, Codable {
         if let fullName = firebaseUser.displayName { json["full_name"] = fullName }
         if let email = firebaseUser.email { json["email"] = email }
         if let photoURL = firebaseUser.photoURL { json["photoURL"] = photoURL }
+        
 //        Storage.loggedIn = true
         completion(User(JSON: json)!, nil)
     }
@@ -153,6 +156,7 @@ struct User: Mappable, Codable {
         json["name"] = user.fullName
         json["email"] = user.email
         json["imageURL"] = user.photoURL?.absoluteString ?? ""
+        json["userType"] = user.userType
 //        json["providers"] = user.providers
         
         return json
@@ -169,5 +173,23 @@ struct User: Mappable, Codable {
         userRef.setValue(user)
     }
     
+    static func getUsetType(_ userID: String,
+                            completion: @escaping (String?, Message?) -> Void) {
+        let rootRef = Database.database().reference()
+        let itemsRef = rootRef.child("main")
+        let usersRef = itemsRef.child("users")
+        let currentUser = usersRef.child(userID)
+        print(userID)
+        currentUser.observeSingleEvent(of: .value, with: { snapshot in
+            print(snapshot)
+            guard let json = snapshot.value as? [String: Any],
+                let userType = json["userType"] as? String else {
+                    completion(nil, Message.custom("User do not have userType"))
+                    return
+            }
+            
+            completion(userType, nil)
+        })
+    }
     
 }

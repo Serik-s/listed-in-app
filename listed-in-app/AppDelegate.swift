@@ -19,8 +19,8 @@ struct Storyboard {
 //    static let profile = UIStoryboard(name: Constants.profile, bundle: nil)
 //    static let mainView = UIStoryboard(name: Constants.mainView, bundle: nil)
 //    // controllers
-    static var mainViewController : UINavigationController {
-        return authorizationAndRegistration.instantiateViewController(withIdentifier: Constants.main) as! UINavigationController
+    static var mainViewController : UIViewController {
+        return authorizationAndRegistration.instantiateViewController(withIdentifier: Constants.main) as! UIViewController
     }
 //
     static var authorizationController: UINavigationController {
@@ -44,7 +44,7 @@ private struct Constants {
 //    static let wifiInfo = "WiFi Info Controller"
 //    static let profileNC = "Profile Controller"
     
-    static let tabBarTintColor = UIColor(hex: 0xF4511E)
+    static let tabBarTintColor = UIColor(hex: 0xFFFFFF)
 }
 
 @UIApplicationMain
@@ -79,8 +79,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         // Override point for customization after application launch.
+        if let user = Auth.auth().currentUser {
+            let nav = UINavigationController(rootViewController: Storyboard.mainViewController)
+            window?.rootViewController = nav
+            print("user id \(user.uid)")
+            
+        }else{
+            window?.rootViewController = Storyboard.authorizationController
+        }
         
-        window?.rootViewController = Storyboard.authorizationController
+        
+        
 
         return true
     }

@@ -21,6 +21,8 @@ class RegistrationViewController: ViewController {
     @IBOutlet weak var userPasswordTextField: UITextField!
     @IBOutlet weak var registerButton: AttributedButton!
     
+    var isInvestor: Bool!
+    
     
     private func configureGooglePlus() {
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
@@ -42,10 +44,38 @@ class RegistrationViewController: ViewController {
         configureDropDown()
         configureGooglePlus()
         registerBackground.backgroundColor = UIColor(patternImage: UIImage(named: "authorization_background")!)
-        // Do any additional setup after loading the view.
+        
+        print("\(isInvestor) change")
     }
 
     @IBAction func authorizeViaFacebook() {
+        LoginManager().logIn(readPermissions: [.email, .publicProfile], viewController: self) { result in
+            switch result {
+            case .success(_, _, let accessToken):
+                self.startAnimating()
+                User.authorizeViaFacebook(accessToken) { user, error in
+                    self.stopAnimating()
+                    
+                    guard let user = user else {
+                        self.showAlert(with: .error, message: error)
+                        return
+                    }
+//                    if let window = UIApplication.shared.windows.first {
+                        //                        user.providers.append("facebook.com")
+                        
+                        appStorage.user = user
+                        let jsonUser = User.setUserInDictionary(user)
+                        User.writeUserInDatabase(jsonUser, userID: user.userID)
+                        self.performSegue(withIdentifier: user.userType, sender: nil)
+//                        window.rootViewController = Storyboard.authorizationController
+//                    }
+                }
+            case .failed:
+                self.showAlert(with: .error, message: .facebookAuthError)
+            case .cancelled:
+                break
+            }
+        }
     }
     
     @IBAction func authorizeViaGoogle() {
@@ -62,19 +92,25 @@ class RegistrationViewController: ViewController {
         User.registerUser(email, password: password, fullname: name) { (user, error) in
             self.stopAnimating()
             
-            guard let user = user else {
+            guard var user = user else {
                 self.showAlert(with: .error, message: error)
                 return
             }
             
-            if let window = UIApplication.shared.windows.first {
+//            if let window = UIApplication.shared.windows.first {
 //                user.providers.append("password")
                 
                 appStorage.user = user
+                if self.isInvestor {
+                    user.userType = "investor"
+                } else {
+                    user.userType = "startup"
+                }
                 let jsonUser = User.setUserInDictionary(user)
                 User.writeUserInDatabase(jsonUser, userID: user.userID)
-                window.rootViewController = Storyboard.authorizationController
-            }
+//                window.rootViewController = Storyboard.authorizationController
+                self.performSegue(withIdentifier: user.userType, sender: nil)
+//            }
         }
         
     }

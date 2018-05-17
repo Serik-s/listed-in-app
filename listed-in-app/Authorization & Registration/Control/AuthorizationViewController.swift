@@ -50,48 +50,62 @@ class AuthorizationViewController: ViewController {
                 return
             }
             
-            if let window = UIApplication.shared.windows.first {
-                
+//            if let window = UIApplication.shared.windows.first {
+            
+            User.getUsetType(user.userID) { userType, error in
+                guard let userType = userType else {
+                    self.showAlert(with: .error, message: error)
+                    return
+                }
+                print(userType)
                 appStorage.user = user
-                let jsonUser = User.setUserInDictionary(user)
-                User.writeUserInDatabase(jsonUser, userID: user.userID)
-                window.rootViewController = Storyboard.authorizationController
+                self.performSegue(withIdentifier: userType, sender: nil)
             }
+//                appStorage.user = user
+//                let jsonUser = User.setUserInDictionary(user)
+//                User.writeUserInDatabase(jsonUser, userID: user.userID)
+//                self.performSegue(withIdentifier: user.userType, sender: nil)
+//            }
         }
     }
     
     
     @IBAction func googleAuthorization() {
+        GIDSignIn.sharedInstance().signIn()
     }
     
     @IBAction func facebookAuthorization() {
         
-//        LoginManager().logIn([.email, .publicProfile], viewController: self) { result in
-//            switch result {
-//            case .success(_, _, let accessToken):
-//                self.startAnimating()
-//                User.authorizeViaFacebook(accessToken) { user, error in
-//                    self.stopAnimating()
-//
-//                    guard var user = user else {
-//                        self.showAlert(with: .error, message: error)
-//                        return
-//                    }
+        
+        LoginManager().logIn(readPermissions: [.email, .publicProfile], viewController: self) { result in
+            switch result {
+            case .success(_, _, let accessToken):
+                self.startAnimating()
+                User.authorizeViaFacebook(accessToken) { user, error in
+                    self.stopAnimating()
+
+                    guard let user = user else {
+                        self.showAlert(with: .error, message: error)
+                        return
+                    }
 //                    if let window = UIApplication.shared.windows.first {
-////                        user.providers.append("facebook.com")
-//
-//                        Storage.user = user
+//                        user.providers.append("facebook.com")
+
+                    appStorage.user = user
+                    let jsonUser = User.setUserInDictionary(user)
+                    User.writeUserInDatabase(jsonUser, userID: user.userID)
+                    self.performSegue(withIdentifier: "investor", sender: nil)
 //                        let jsonUser = User.setUserInDictionary(user)
-////                        User.writeUserInDatabase(jsonUser, userID: user.userID)
-//                        window.rootViewController = Storyboard.wifiInfoController
+//                        User.writeUserInDatabase(jsonUser, userID: user.userID)
+//                        window.rootViewController = Storyboard.authorizationController
 //                    }
-//                }
-//            case .failed:
-//                self.showAlert(with: .error, message: .facebookAuthError)
-//            case .cancelled:
-//                break
-//            }
-//        }
+                }
+            case .failed:
+                self.showAlert(with: .error, message: .facebookAuthError)
+            case .cancelled:
+                break
+            }
+        }
     }
     
     
@@ -119,7 +133,7 @@ extension AuthorizationViewController: GIDSignInDelegate {
         User.authorizeViaGoogle(user) { user, error in
             self.stopAnimating()
             
-            guard let user = user else {
+            guard var user = user else {
                 self.showAlert(with: .error, message: error)
                 return
             }
@@ -128,9 +142,10 @@ extension AuthorizationViewController: GIDSignInDelegate {
                 //                user.providers.append("google.com")
                 
                 appStorage.user = user
+                user.userType = "investor"
                 //                let jsonUser = User.setUserInDictionary(user)
                 //                User.writeUserInDatabase(jsonUser, userID: user.userID)
-                window.rootViewController = Storyboard.authorizationController
+                self.performSegue(withIdentifier: user.userType, sender: nil)
             }
         }
     }

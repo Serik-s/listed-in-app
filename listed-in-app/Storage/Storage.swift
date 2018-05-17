@@ -40,9 +40,10 @@ struct appStorage {
 //            }
 //
             let json = try? Caches.jsonCache.object(ofType: User?.self, forKey: Constants.userKey)
+            print("get got user json")
             return json!
         
-            return nil
+            
         }
         set {
             // всякий раз когда мы изменяем авторизованного пользователя
@@ -50,8 +51,10 @@ struct appStorage {
             // иначе удаляем из памяти
             if let user = newValue {
                 try! Caches.jsonCache.setObject(user, forKey: Constants.userKey)
+                print("set func written new user")
             } else {
                 try! Caches.jsonCache.removeObject(forKey: Constants.userKey)
+                print("set func removed user")
             }
         }
     }
