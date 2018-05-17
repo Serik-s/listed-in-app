@@ -31,6 +31,8 @@
 		7271FA8A20ADD34900F0C8DE /* StartupListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7271FA8920ADD34900F0C8DE /* StartupListTableViewController.swift */; };
 		7271FA8C20ADF26800F0C8DE /* StartupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7271FA8B20ADF26800F0C8DE /* StartupTableViewCell.swift */; };
 		7271FA8E20ADF37D00F0C8DE /* Startup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7271FA8D20ADF37D00F0C8DE /* Startup.swift */; };
+		7271FA9020AE2BA400F0C8DE /* StorageServiceFireBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7271FA8F20AE2BA400F0C8DE /* StorageServiceFireBase.swift */; };
+		7271FA9220AE2BCF00F0C8DE /* PostServiceFireBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7271FA9120AE2BCF00F0C8DE /* PostServiceFireBase.swift */; };
 		72AEA9B720A74E6D00E24C58 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AEA9B620A74E6D00E24C58 /* User.swift */; };
 		72AEA9B920A74E9D00E24C58 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72AEA9B820A74E9D00E24C58 /* Login.storyboard */; };
 		72AEA9BB20A74EB800E24C58 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AEA9BA20A74EB800E24C58 /* AuthorizationViewController.swift */; };
@@ -67,6 +69,8 @@
 		7271FA8920ADD34900F0C8DE /* StartupListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupListTableViewController.swift; sourceTree = "<group>"; };
 		7271FA8B20ADF26800F0C8DE /* StartupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupTableViewCell.swift; sourceTree = "<group>"; };
 		7271FA8D20ADF37D00F0C8DE /* Startup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Startup.swift; sourceTree = "<group>"; };
+		7271FA8F20AE2BA400F0C8DE /* StorageServiceFireBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceFireBase.swift; sourceTree = "<group>"; };
+		7271FA9120AE2BCF00F0C8DE /* PostServiceFireBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostServiceFireBase.swift; sourceTree = "<group>"; };
 		72AEA9B620A74E6D00E24C58 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		72AEA9B820A74E9D00E24C58 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		72AEA9BA20A74EB800E24C58 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
@@ -136,6 +140,8 @@
 			isa = PBXGroup;
 			children = (
 				7271FA8D20ADF37D00F0C8DE /* Startup.swift */,
+				7271FA8F20AE2BA400F0C8DE /* StorageServiceFireBase.swift */,
+				7271FA9120AE2BCF00F0C8DE /* PostServiceFireBase.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -491,11 +497,13 @@
 				724936E220AB8BB000E969D4 /* ViewController.swift in Sources */,
 				72531B9F20A64E720092C800 /* AppDelegate.swift in Sources */,
 				721F2E4D20AC7A86005466B1 /* ProfileTableViewController.swift in Sources */,
+				7271FA9220AE2BCF00F0C8DE /* PostServiceFireBase.swift in Sources */,
 				72AEA9BD20A74EC700E24C58 /* RegistrationViewController.swift in Sources */,
 				724936E020AB855800E969D4 /* Message.swift in Sources */,
 				721F2E4B20AC6A3E005466B1 /* UIColorExtension.swift in Sources */,
 				7271FA8C20ADF26800F0C8DE /* StartupTableViewCell.swift in Sources */,
 				7271FA8420ADCE1500F0C8DE /* SearchTableViewController.swift in Sources */,
+				7271FA9020AE2BA400F0C8DE /* StorageServiceFireBase.swift in Sources */,
 				7271FA8620ADD06200F0C8DE /* CreateStartupViewController.swift in Sources */,
 				72AEA9B720A74E6D00E24C58 /* User.swift in Sources */,
 				72AEA9C220A7564900E24C58 /* AttributedView.swift in Sources */,

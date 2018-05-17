@@ -19,8 +19,12 @@ struct Storyboard {
 //    static let profile = UIStoryboard(name: Constants.profile, bundle: nil)
 //    static let mainView = UIStoryboard(name: Constants.mainView, bundle: nil)
 //    // controllers
-    static var mainViewController : UIViewController {
-        return authorizationAndRegistration.instantiateViewController(withIdentifier: Constants.main) as! UIViewController
+    static var investorViewController : UIViewController {
+        return authorizationAndRegistration.instantiateViewController(withIdentifier: Constants.mainInvestor) as! UIViewController
+    }
+    
+    static var startupViewController: UIViewController {
+        return authorizationAndRegistration.instantiateViewController(withIdentifier: Constants.mainStartup) as! UIViewController
     }
 //
     static var authorizationController: UINavigationController {
@@ -38,7 +42,8 @@ private struct Constants {
     static let login = "Login"
 //    static let profile = "Profile"
     static let mainView = "MainView"
-    static let main = "main"
+    static let mainInvestor = "main_investor"
+    static let mainStartup = "main_startup"
     // Controller names
     static let authorizationNC = "Authorization Navigation Controller"
 //    static let wifiInfo = "WiFi Info Controller"
@@ -80,11 +85,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Override point for customization after application launch.
         if let user = Auth.auth().currentUser {
-            let nav = UINavigationController(rootViewController: Storyboard.mainViewController)
+            let nav = UINavigationController(rootViewController: Storyboard.investorViewController)
             window?.rootViewController = nav
             print("user id \(user.uid)")
-            
-        }else{
+        } else {
             window?.rootViewController = Storyboard.authorizationController
         }
         

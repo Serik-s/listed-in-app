@@ -8,11 +8,15 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseStorage
 
-class CreateStartupViewController: UIViewController {
+class CreateStartupViewController: UIViewController, UIImagePickerControllerDelegate {
 
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
+    @IBOutlet weak var startupImageView: UIImageView!
+    
+    var photoURL: URL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,16 +28,89 @@ class CreateStartupViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = false
     }
     
+    @IBAction func uploadImageClick(_ sender: Any) {
+        handleSelectProfileImageView()
+        getImageUrl()
+    }
+    
+    
     @IBAction func addNewStartup() {
         let name = nameTextField.text!
         let description = descriptionTextField.text!
-        let photoURL = URL(string: "https://www.facebook.com/photo.php?fbid=426369177748846&set=a.141999109519189.1073741826.100011273029471&type=3&theater")
         
         let owner = Auth.auth().currentUser?.displayName
         let userID = Auth.auth().currentUser?.uid
         
-        let startup = Startup(name: name, description: description, photoURL: photoURL!, owner: owner)
+//        getImageUrl()
+       
+        
+        let startup = Startup(name: name, description: description, photoURL: self.photoURL!, owner: owner)
         let startupJSON = Startup.setStartupInDictionary(startup)
         Startup.addStartup(startupJSON, userID:  userID!)
     }
+    
+    private func getImageUrl() {
+        let imageName = NSUUID().uuidString
+        let storageRef = Storage.storage().reference().child("startup_images").child("\(imageName).png")
+        
+        if let uploadData = UIImagePNGRepresentation(self.startupImageView.image!) {
+            
+            storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
+                
+                if let error = error {
+                    print(error)
+                    return
+                }
+                
+                
+                //                let size = metadata?.size
+                storageRef.downloadURL { (url, error) in
+                    guard let imageURL = url else {
+                        print(error ?? "no error")
+                        return
+                    }
+                    self.photoURL = imageURL
+                    
+                    
+                }
+            })
+        }
+    }
+    
+   
+    
+    func handleSelectProfileImageView() {
+        let picker = UIImagePickerController()
+        
+        picker.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
+        picker.allowsEditing = true
+        
+        present(picker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        var selectedImageFromPicker: UIImage?
+        
+        if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
+            selectedImageFromPicker = editedImage
+        } else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            
+            selectedImageFromPicker = originalImage
+        }
+        
+        if let selectedImage = selectedImageFromPicker {
+            startupImageView.image = selectedImage
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print("canceled picker")
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
 }

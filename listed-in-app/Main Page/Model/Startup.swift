@@ -9,6 +9,7 @@
 
 import ObjectMapper
 import FirebaseDatabase
+import FirebaseStorage
 
 class Startup :  Mappable{
 //    var startupID = ""
@@ -40,6 +41,8 @@ class Startup :  Mappable{
         photoURL <- map["photoURL"]
         owner <- map["owner"]
     }
+    
+    
     
     static func getStartupList(completion: @escaping ([Startup]?, Message?) -> Void) {
         let rootRef = Database.database().reference()
@@ -94,6 +97,7 @@ class Startup :  Mappable{
         
         startupRef.childByAutoId().setValue(startup)
     }
+    
     
     
     

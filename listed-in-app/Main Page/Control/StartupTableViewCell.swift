@@ -16,7 +16,7 @@ enum CurrencyCellState: Int {
 
 class StartupTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var startupImageView: UIImageView!
+    @IBOutlet weak var startupImageView: AttributedImageView!
     @IBOutlet weak var startupNameLabel: UILabel!
     @IBOutlet weak var startupDescriptionLabel: UILabel!
     
