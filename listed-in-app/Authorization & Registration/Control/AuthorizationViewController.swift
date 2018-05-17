@@ -50,7 +50,7 @@ class AuthorizationViewController: ViewController {
                 return
             }
             
-//            if let window = UIApplication.shared.windows.first {
+
             
             User.getUsetType(user.userID) { userType, error in
                 guard let userType = userType else {
@@ -61,11 +61,8 @@ class AuthorizationViewController: ViewController {
                 appStorage.user = user
                 self.performSegue(withIdentifier: userType, sender: nil)
             }
-//                appStorage.user = user
-//                let jsonUser = User.setUserInDictionary(user)
-//                User.writeUserInDatabase(jsonUser, userID: user.userID)
-//                self.performSegue(withIdentifier: user.userType, sender: nil)
-//            }
+
+
         }
     }
     
@@ -84,21 +81,27 @@ class AuthorizationViewController: ViewController {
                 User.authorizeViaFacebook(accessToken) { user, error in
                     self.stopAnimating()
 
-                    guard let user = user else {
+                    guard var user = user else {
                         self.showAlert(with: .error, message: error)
                         return
                     }
-//                    if let window = UIApplication.shared.windows.first {
-//                        user.providers.append("facebook.com")
 
-                    appStorage.user = user
-                    let jsonUser = User.setUserInDictionary(user)
-                    User.writeUserInDatabase(jsonUser, userID: user.userID)
-                    self.performSegue(withIdentifier: "investor", sender: nil)
-//                        let jsonUser = User.setUserInDictionary(user)
-//                        User.writeUserInDatabase(jsonUser, userID: user.userID)
-//                        window.rootViewController = Storyboard.authorizationController
-//                    }
+                    User.getUsetType(user.userID) { userType, error in
+                        guard let userType = userType else {
+                            
+                            appStorage.user = user
+                            user.userType = "investor"
+                            let jsonUser = User.setUserInDictionary(user)
+                            User.writeUserInDatabase(jsonUser, userID: user.userID)
+                            self.performSegue(withIdentifier: user.userType, sender: nil)
+                            return
+                        }
+                        print(userType)
+                        appStorage.user = user
+                        self.performSegue(withIdentifier: userType, sender: nil)
+                    }
+
+
                 }
             case .failed:
                 self.showAlert(with: .error, message: .facebookAuthError)
@@ -107,20 +110,6 @@ class AuthorizationViewController: ViewController {
             }
         }
     }
-    
-    
-    
-    
-   
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
@@ -137,19 +126,25 @@ extension AuthorizationViewController: GIDSignInDelegate {
                 self.showAlert(with: .error, message: error)
                 return
             }
-            
-            if let window = UIApplication.shared.windows.first {
-                //                user.providers.append("google.com")
-                
+            User.getUsetType(user.userID) { userType, error in
+                guard let userType = userType else {
+                    
+                    appStorage.user = user
+                    user.userType = "investor"
+                    let jsonUser = User.setUserInDictionary(user)
+                    print(user)
+                    print(jsonUser)
+                    User.writeUserInDatabase(jsonUser, userID: user.userID)
+                    self.performSegue(withIdentifier: user.userType, sender: nil)
+                    return
+                }
+                print(userType)
                 appStorage.user = user
-                user.userType = "investor"
-                //                let jsonUser = User.setUserInDictionary(user)
-                //                User.writeUserInDatabase(jsonUser, userID: user.userID)
-                self.performSegue(withIdentifier: user.userType, sender: nil)
+                self.performSegue(withIdentifier: userType, sender: nil)
             }
+
         }
     }
-    
 }
 
 // Extension with protocol GOOGLE SIGN IN UI DELEGATE

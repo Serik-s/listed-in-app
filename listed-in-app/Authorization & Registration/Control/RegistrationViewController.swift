@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MKDropdownMenu
 import GoogleSignIn
 import Firebase
 import FacebookLogin
@@ -30,22 +29,13 @@ class RegistrationViewController: ViewController {
         GIDSignIn.sharedInstance().uiDelegate = self
     }
     
-    private func configureDropDown() {
-        let dropdown = MKDropdownMenu.init(frame: CGRect(x: 0, y: 0, width: 320, height: 4))
-        dropdown.dataSource = self as? MKDropdownMenuDataSource
-        dropdown.delegate = self as? MKDropdownMenuDelegate
-        self.view.addSubview(dropdown)
-    }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureDropDown()
         configureGooglePlus()
         registerBackground.backgroundColor = UIColor(patternImage: UIImage(named: "authorization_background")!)
         
-        print("\(isInvestor) change")
     }
 
     @IBAction func authorizeViaFacebook() {
@@ -56,17 +46,23 @@ class RegistrationViewController: ViewController {
                 User.authorizeViaFacebook(accessToken) { user, error in
                     self.stopAnimating()
                     
-                    guard let user = user else {
+                    guard var user = user else {
                         self.showAlert(with: .error, message: error)
                         return
                     }
 //                    if let window = UIApplication.shared.windows.first {
                         //                        user.providers.append("facebook.com")
                         
-                        appStorage.user = user
-                        let jsonUser = User.setUserInDictionary(user)
-                        User.writeUserInDatabase(jsonUser, userID: user.userID)
-                        self.performSegue(withIdentifier: user.userType, sender: nil)
+                    appStorage.user = user
+                    if self.isInvestor {
+                        user.userType = "investor"
+                    } else {
+                        user.userType = "startup"
+                    }
+                    let jsonUser = User.setUserInDictionary(user)
+                    User.writeUserInDatabase(jsonUser, userID: user.userID)
+                    //                window.rootViewController = Storyboard.authorizationController
+                    self.performSegue(withIdentifier: user.userType, sender: nil)
 //                        window.rootViewController = Storyboard.authorizationController
 //                    }
                 }
@@ -126,19 +122,27 @@ extension RegistrationViewController: GIDSignInDelegate {
         User.authorizeViaGoogle(user) { user, error in
             self.stopAnimating()
             
-            guard let user = user else {
+            guard var user = user else {
                 self.showAlert(with: .error, message: error)
                 return
             }
             
-            if let window = UIApplication.shared.windows.first {
+//            if let window = UIApplication.shared.windows.first {
 //                user.providers.append("google.com")
                 
                 appStorage.user = user
+                if self.isInvestor {
+                    user.userType = "investor"
+                } else {
+                    user.userType = "startup"
+                }
+                let jsonUser = User.setUserInDictionary(user)
+                User.writeUserInDatabase(jsonUser, userID: user.userID)
 //                let jsonUser = User.setUserInDictionary(user)
 //                User.writeUserInDatabase(jsonUser, userID: user.userID)
-                window.rootViewController = Storyboard.authorizationController
-            }
+                self.performSegue(withIdentifier: user.userType, sender: nil)
+            
+//            }
         }
     }
     

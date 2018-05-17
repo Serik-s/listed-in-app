@@ -57,10 +57,15 @@ class ProfileTableViewController: TableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.userAvatarImageView.layer.cornerRadius = self.userAvatarImageView.frame.height/2
+        self.userAvatarImageView.layer.masksToBounds = true
         self.navigationController?.navigationBar.isHidden = true
         setUser()
         configureTableView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -135,9 +140,9 @@ class ProfileTableViewController: TableViewController {
     }
     */
     
-    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("\(indexPath.row) clicked row number")
+        tableView.deselectRow(at: indexPath, animated: true)
         switch ProfileActionsRowType(rawValue: indexPath.row)! {
         case .sendFeedback:
             performSegue(withIdentifier: Constants.feedbackSegue, sender: nil)
@@ -164,7 +169,6 @@ class ProfileTableViewController: TableViewController {
         default:
             break
         }
-        
     }
-
+ 
 }

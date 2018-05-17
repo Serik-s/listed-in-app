@@ -10,7 +10,6 @@
 		721F2E4B20AC6A3E005466B1 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721F2E4A20AC6A3E005466B1 /* UIColorExtension.swift */; };
 		721F2E4D20AC7A86005466B1 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721F2E4C20AC7A86005466B1 /* ProfileTableViewController.swift */; };
 		721F2E4F20AC7EA3005466B1 /* AttributedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721F2E4E20AC7EA3005466B1 /* AttributedImageView.swift */; };
-		721F2E5120AC8376005466B1 /* StartUpListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721F2E5020AC8376005466B1 /* StartUpListViewController.swift */; };
 		721F2E5320AC863D005466B1 /* DetailedStartUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721F2E5220AC863D005466B1 /* DetailedStartUpViewController.swift */; };
 		721F2E5520ACB7FE005466B1 /* UserTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721F2E5420ACB7FE005466B1 /* UserTypeViewController.swift */; };
 		721F2E5720ACBE6F005466B1 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721F2E5620ACBE6F005466B1 /* TableViewController.swift */; };
@@ -27,6 +26,11 @@
 		72531BA620A64E730092C800 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72531BA520A64E730092C800 /* Assets.xcassets */; };
 		72531BA920A64E730092C800 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72531BA720A64E730092C800 /* LaunchScreen.storyboard */; };
 		72531BB220A650210092C800 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 72531BB120A650210092C800 /* GoogleService-Info.plist */; };
+		7271FA8420ADCE1500F0C8DE /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7271FA8320ADCE1500F0C8DE /* SearchTableViewController.swift */; };
+		7271FA8620ADD06200F0C8DE /* CreateStartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7271FA8520ADD06200F0C8DE /* CreateStartupViewController.swift */; };
+		7271FA8A20ADD34900F0C8DE /* StartupListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7271FA8920ADD34900F0C8DE /* StartupListTableViewController.swift */; };
+		7271FA8C20ADF26800F0C8DE /* StartupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7271FA8B20ADF26800F0C8DE /* StartupTableViewCell.swift */; };
+		7271FA8E20ADF37D00F0C8DE /* Startup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7271FA8D20ADF37D00F0C8DE /* Startup.swift */; };
 		72AEA9B720A74E6D00E24C58 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AEA9B620A74E6D00E24C58 /* User.swift */; };
 		72AEA9B920A74E9D00E24C58 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72AEA9B820A74E9D00E24C58 /* Login.storyboard */; };
 		72AEA9BB20A74EB800E24C58 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AEA9BA20A74EB800E24C58 /* AuthorizationViewController.swift */; };
@@ -40,7 +44,6 @@
 		721F2E4A20AC6A3E005466B1 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		721F2E4C20AC7A86005466B1 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		721F2E4E20AC7EA3005466B1 /* AttributedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedImageView.swift; sourceTree = "<group>"; };
-		721F2E5020AC8376005466B1 /* StartUpListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartUpListViewController.swift; sourceTree = "<group>"; };
 		721F2E5220AC863D005466B1 /* DetailedStartUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedStartUpViewController.swift; sourceTree = "<group>"; };
 		721F2E5420ACB7FE005466B1 /* UserTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTypeViewController.swift; sourceTree = "<group>"; };
 		721F2E5620ACBE6F005466B1 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +62,11 @@
 		72531BA820A64E730092C800 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		72531BAA20A64E730092C800 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		72531BB120A650210092C800 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7271FA8320ADCE1500F0C8DE /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
+		7271FA8520ADD06200F0C8DE /* CreateStartupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateStartupViewController.swift; sourceTree = "<group>"; };
+		7271FA8920ADD34900F0C8DE /* StartupListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupListTableViewController.swift; sourceTree = "<group>"; };
+		7271FA8B20ADF26800F0C8DE /* StartupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupTableViewCell.swift; sourceTree = "<group>"; };
+		7271FA8D20ADF37D00F0C8DE /* Startup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Startup.swift; sourceTree = "<group>"; };
 		72AEA9B620A74E6D00E24C58 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		72AEA9B820A74E9D00E24C58 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		72AEA9BA20A74EB800E24C58 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
@@ -127,6 +135,7 @@
 		721F2E4720AC5F91005466B1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7271FA8D20ADF37D00F0C8DE /* Startup.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -141,8 +150,11 @@
 		721F2E4920AC5F9F005466B1 /* Control */ = {
 			isa = PBXGroup;
 			children = (
-				721F2E5020AC8376005466B1 /* StartUpListViewController.swift */,
 				721F2E5220AC863D005466B1 /* DetailedStartUpViewController.swift */,
+				7271FA8320ADCE1500F0C8DE /* SearchTableViewController.swift */,
+				7271FA8520ADD06200F0C8DE /* CreateStartupViewController.swift */,
+				7271FA8920ADD34900F0C8DE /* StartupListTableViewController.swift */,
+				7271FA8B20ADF26800F0C8DE /* StartupTableViewCell.swift */,
 			);
 			path = Control;
 			sourceTree = "<group>";
@@ -462,15 +474,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7271FA8A20ADD34900F0C8DE /* StartupListTableViewController.swift in Sources */,
 				721F2E6120ACFD9B005466B1 /* SendFeedbackTableViewController.swift in Sources */,
 				724936E420AB8BDC00E969D4 /* Title.swift in Sources */,
 				72AEA9BB20A74EB800E24C58 /* AuthorizationViewController.swift in Sources */,
 				721F2E5D20ACF8A7005466B1 /* Feedback.swift in Sources */,
 				721F2E5720ACBE6F005466B1 /* TableViewController.swift in Sources */,
 				721F2E5920ACEE73005466B1 /* ImageManager.swift in Sources */,
-				721F2E5120AC8376005466B1 /* StartUpListViewController.swift in Sources */,
 				721F2E4F20AC7EA3005466B1 /* AttributedImageView.swift in Sources */,
 				724936DD20AB79A300E969D4 /* Storage.swift in Sources */,
+				7271FA8E20ADF37D00F0C8DE /* Startup.swift in Sources */,
 				724936DA20AB5D0400E969D4 /* AttributedButton.swift in Sources */,
 				721F2E5320AC863D005466B1 /* DetailedStartUpViewController.swift in Sources */,
 				721F2E5F20ACFC8D005466B1 /* Colors.swift in Sources */,
@@ -481,6 +494,9 @@
 				72AEA9BD20A74EC700E24C58 /* RegistrationViewController.swift in Sources */,
 				724936E020AB855800E969D4 /* Message.swift in Sources */,
 				721F2E4B20AC6A3E005466B1 /* UIColorExtension.swift in Sources */,
+				7271FA8C20ADF26800F0C8DE /* StartupTableViewCell.swift in Sources */,
+				7271FA8420ADCE1500F0C8DE /* SearchTableViewController.swift in Sources */,
+				7271FA8620ADD06200F0C8DE /* CreateStartupViewController.swift in Sources */,
 				72AEA9B720A74E6D00E24C58 /* User.swift in Sources */,
 				72AEA9C220A7564900E24C58 /* AttributedView.swift in Sources */,
 			);

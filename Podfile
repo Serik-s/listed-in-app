@@ -17,6 +17,7 @@ target 'listed-in-app' do
   pod 'ReachabilitySwift'
   pod 'Reusable'
   pod 'Firebase/Core'
+  pod 'Firebase/Storage'
   pod 'Firebase/Auth'
   pod 'Bolts'
   pod 'GoogleSignIn'
