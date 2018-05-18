@@ -18,6 +18,7 @@ class StartupListTableViewController: TableViewController {
 
     
     var listOfStartups: [Startup] = []
+    var startupIndex: Int = -1
     
     private func configureTableView() {
         tableView.tableFooterView = UIView()
@@ -53,9 +54,9 @@ class StartupListTableViewController: TableViewController {
         switch segue.identifier {
         case Constants.detailSegue:
             let detailDestination = segue.destination as! DetailedStartUpViewController
-            let indexPath = tableView.indexPathForSelectedRow
-            let index = indexPath?.row
-            detailDestination.startup = listOfStartups[index!]
+//            let indexPath = tableView.indexPathForSelectedRow
+//            let index = indexPath?.row
+            detailDestination.startup = listOfStartups[startupIndex]
         default: break
         }
     }
@@ -83,13 +84,8 @@ class StartupListTableViewController: TableViewController {
     override func tableView(_ tableView: UITableView,
                             didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        performSegue(withIdentifier: Constants.detailSegue, sender: tableView)
         
+        startupIndex = indexPath.row
+        performSegue(withIdentifier: Constants.detailSegue, sender: tableView)
     }
-    
-    
-    
-
-
-
 }

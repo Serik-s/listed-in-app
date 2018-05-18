@@ -154,6 +154,7 @@ class ProfileTableViewController: TableViewController {
                         self.showAlert(with: .error, message: message!)
                     } else {
                         appStorage.loggedIn = false
+                        UserDefaults.standard.removeObject(forKey: "userType")
                         appStorage.clear()
                         if let window = UIApplication.shared.windows.first {
                             window.rootViewController = Storyboard.authorizationController

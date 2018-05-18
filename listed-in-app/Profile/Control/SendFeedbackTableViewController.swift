@@ -36,6 +36,11 @@ class SendFeedbackTableViewController: TableViewController {
         
         configureTableView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = false
+    }
+    
 
     private func paintStars(_ index: Int, goingToSelect: Bool) {
         

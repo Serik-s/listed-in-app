@@ -46,6 +46,7 @@ class DetailedStartUpViewController: UIViewController {
     }
 
     @IBAction func likeStartup(_ sender: UIButton) {
+        
     }
     
 

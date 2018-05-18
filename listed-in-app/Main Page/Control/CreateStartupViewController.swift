@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseStorage
 
-class CreateStartupViewController: UIViewController, UIImagePickerControllerDelegate {
+class CreateStartupViewController: ViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
@@ -18,10 +18,14 @@ class CreateStartupViewController: UIViewController, UIImagePickerControllerDele
     
     var photoURL: URL?
     
+    private func configureBackground() {
+        view.backgroundColor = UIColor(patternImage: UIImage(named: "stars")!)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        configureBackground()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,21 +34,27 @@ class CreateStartupViewController: UIViewController, UIImagePickerControllerDele
     
     @IBAction func uploadImageClick(_ sender: Any) {
         handleSelectProfileImageView()
-        getImageUrl()
+//        getImageUrl()
     }
     
     
     @IBAction func addNewStartup() {
+        if (nameTextField.text?.isEmpty)! || (descriptionTextField.text?.isEmpty)! {
+            self.showAlert(with: .error, message: .custom("You didn't fill the gaps"))
+        } else {
+            getImageUrl()
+            self.showAlert(with: .success, message: .custom("Your startup has been added and investor can see it!"))
+        }
+    }
+    
+    private func otherSubmissions() {
         let name = nameTextField.text!
         let description = descriptionTextField.text!
         
         let owner = Auth.auth().currentUser?.displayName
         let userID = Auth.auth().currentUser?.uid
-        
-//        getImageUrl()
-       
-        
         let startup = Startup(name: name, description: description, photoURL: self.photoURL!, owner: owner)
+        print("hello world")
         let startupJSON = Startup.setStartupInDictionary(startup)
         Startup.addStartup(startupJSON, userID:  userID!)
     }
@@ -70,7 +80,7 @@ class CreateStartupViewController: UIViewController, UIImagePickerControllerDele
                         return
                     }
                     self.photoURL = imageURL
-                    
+                    self.otherSubmissions()
                     
                 }
             })
@@ -82,11 +92,12 @@ class CreateStartupViewController: UIViewController, UIImagePickerControllerDele
     func handleSelectProfileImageView() {
         let picker = UIImagePickerController()
         
-        picker.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
+        picker.delegate = self
         picker.allowsEditing = true
         
         present(picker, animated: true, completion: nil)
     }
+    
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
@@ -95,7 +106,6 @@ class CreateStartupViewController: UIViewController, UIImagePickerControllerDele
         if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
             selectedImageFromPicker = editedImage
         } else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
-            
             selectedImageFromPicker = originalImage
         }
         

@@ -57,6 +57,7 @@ class AuthorizationViewController: ViewController {
                     self.showAlert(with: .error, message: error)
                     return
                 }
+                UserDefaults.standard.set(userType, forKey: "userType")
                 print(userType)
                 appStorage.user = user
                 self.performSegue(withIdentifier: userType, sender: nil)
@@ -88,14 +89,15 @@ class AuthorizationViewController: ViewController {
 
                     User.getUsetType(user.userID) { userType, error in
                         guard let userType = userType else {
-                            
                             appStorage.user = user
                             user.userType = "investor"
+                            UserDefaults.standard.set("investor", forKey: "userType")
                             let jsonUser = User.setUserInDictionary(user)
                             User.writeUserInDatabase(jsonUser, userID: user.userID)
                             self.performSegue(withIdentifier: user.userType, sender: nil)
                             return
                         }
+                        UserDefaults.standard.set(userType, forKey: "userType")
                         print(userType)
                         appStorage.user = user
                         self.performSegue(withIdentifier: userType, sender: nil)
@@ -133,11 +135,13 @@ extension AuthorizationViewController: GIDSignInDelegate {
                     user.userType = "investor"
                     let jsonUser = User.setUserInDictionary(user)
                     print(user)
+                    UserDefaults.standard.set("investor", forKey: "userType")
                     print(jsonUser)
                     User.writeUserInDatabase(jsonUser, userID: user.userID)
                     self.performSegue(withIdentifier: user.userType, sender: nil)
                     return
                 }
+                UserDefaults.standard.set(userType, forKey: "userType")
                 print(userType)
                 appStorage.user = user
                 self.performSegue(withIdentifier: userType, sender: nil)

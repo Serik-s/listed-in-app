@@ -20,11 +20,11 @@ struct Storyboard {
 //    static let mainView = UIStoryboard(name: Constants.mainView, bundle: nil)
 //    // controllers
     static var investorViewController : UIViewController {
-        return authorizationAndRegistration.instantiateViewController(withIdentifier: Constants.mainInvestor) as! UIViewController
+        return authorizationAndRegistration.instantiateViewController(withIdentifier: Constants.mainInvestor)
     }
     
     static var startupViewController: UIViewController {
-        return authorizationAndRegistration.instantiateViewController(withIdentifier: Constants.mainStartup) as! UIViewController
+        return authorizationAndRegistration.instantiateViewController(withIdentifier: Constants.mainStartup)
     }
 //
     static var authorizationController: UINavigationController {
@@ -85,15 +85,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Override point for customization after application launch.
         if let user = Auth.auth().currentUser {
-            let nav = UINavigationController(rootViewController: Storyboard.investorViewController)
-            window?.rootViewController = nav
+            
+            if let userType = UserDefaults.standard.string(forKey: "userType") {
+                if userType == "investor" {
+                    let nav = UINavigationController(rootViewController: Storyboard.investorViewController)
+                    self.window?.rootViewController = nav
+                } else {
+                    let nav = UINavigationController(rootViewController: Storyboard.startupViewController)
+                    self.window?.rootViewController = nav
+                }
+            }else{
+                window?.rootViewController = Storyboard.authorizationController
+            }
+//            User.getUsetType(user.uid) { userType, error in
+//                guard let userType = userType else {
+////                    window?.rootViewController = Storyboard.authorizationController
+//                    return
+//                }
+//
+//                if userType == "investor" {
+//                    let nav = UINavigationController(rootViewController: Storyboard.investorViewController)
+//                    self.window?.rootViewController = nav
+//                } else {
+//                    let nav = UINavigationController(rootViewController: Storyboard.startupViewController)
+//                    self.window?.rootViewController = nav
+//                }
+//            }
+            
+//            let nav = UINavigationController(rootViewController: Storyboard.investorViewController)
+//            window?.rootViewController = nav
             print("user id \(user.uid)")
         } else {
             window?.rootViewController = Storyboard.authorizationController
         }
-        
-        
-        
 
         return true
     }
