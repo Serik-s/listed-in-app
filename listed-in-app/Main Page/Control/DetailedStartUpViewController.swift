@@ -9,9 +9,30 @@
 import UIKit
 
 class DetailedStartUpViewController: UIViewController {
-
+    
+    
+    @IBOutlet weak var startupImageView: AttributedImageView!
+    @IBOutlet weak var startupNameLabel: UILabel!
+    @IBOutlet weak var startupDescriptionLabel: UILabel!
+    
+    var startup: Startup?
+    
+    private func setStartupDetails() {
+        startupNameLabel.text = startup?.name
+        startupDescriptionLabel.text = startup?.description
+        if let url = startup?.photoURL {
+            ImageManager.downloadImage(from: url) { image in
+                DispatchQueue.main.async {
+                    self.startupImageView.image = image
+                }
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setStartupDetails()
         
         // Do any additional setup after loading the view.
     }
@@ -24,14 +45,8 @@ class DetailedStartUpViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = false
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func likeStartup(_ sender: UIButton) {
     }
-    */
+    
 
 }

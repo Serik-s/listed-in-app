@@ -11,6 +11,7 @@ import FirebaseDatabase
 
 private struct Constants {
     static let startupCell = "Startup"
+    static let detailSegue = "startup_detail"
 }
 
 class StartupListTableViewController: TableViewController {
@@ -47,8 +48,17 @@ class StartupListTableViewController: TableViewController {
         self.navigationController?.navigationBar.isHidden = true
     }
 
-    // MARK: - Table view data source
-
+   
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case Constants.detailSegue:
+            let detailDestination = segue.destination as! DetailedStartUpViewController
+            let indexPath = tableView.indexPathForSelectedRow
+            let index = indexPath?.row
+            detailDestination.startup = listOfStartups[index!]
+        default: break
+        }
+    }
     
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -70,11 +80,14 @@ class StartupListTableViewController: TableViewController {
         return cell
     }
     
-//    override func tableView(_ tableView: UITableView,
-//                            didSelectRowAt indexPath: IndexPath) {
-//        completion(self.currencies[indexPath.item])
-//        navigationController?.popViewController(animated: true)
-//    }
+    override func tableView(_ tableView: UITableView,
+                            didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: Constants.detailSegue, sender: tableView)
+        
+    }
+    
+    
     
 
 

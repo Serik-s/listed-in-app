@@ -38,6 +38,7 @@
 		72AEA9BB20A74EB800E24C58 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AEA9BA20A74EB800E24C58 /* AuthorizationViewController.swift */; };
 		72AEA9BD20A74EC700E24C58 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AEA9BC20A74EC700E24C58 /* RegistrationViewController.swift */; };
 		72AEA9C220A7564900E24C58 /* AttributedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AEA9C120A7564900E24C58 /* AttributedView.swift */; };
+		72E8363420AE79CC00E95B7C /* SearchedStartupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E8363320AE79CC00E95B7C /* SearchedStartupTableViewCell.swift */; };
 		7B1DCCB08D4DF745481EA5A5 /* Pods_listed_in_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B1A95D51162C17F3CD18DF5 /* Pods_listed_in_app.framework */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +78,7 @@
 		72AEA9BC20A74EC700E24C58 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		72AEA9C120A7564900E24C58 /* AttributedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedView.swift; sourceTree = "<group>"; };
 		72CA92D020ABAC9B00EF7C0B /* Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Reachability.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		72E8363320AE79CC00E95B7C /* SearchedStartupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedStartupTableViewCell.swift; sourceTree = "<group>"; };
 		7ECC4AB9AB081516F11DEF33 /* Pods-listed-in-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-listed-in-app.release.xcconfig"; path = "Pods/Target Support Files/Pods-listed-in-app/Pods-listed-in-app.release.xcconfig"; sourceTree = "<group>"; };
 		F54B6E0CEC470C0F6AC435D0 /* Pods-listed-in-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-listed-in-app.debug.xcconfig"; path = "Pods/Target Support Files/Pods-listed-in-app/Pods-listed-in-app.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -161,6 +163,7 @@
 				7271FA8520ADD06200F0C8DE /* CreateStartupViewController.swift */,
 				7271FA8920ADD34900F0C8DE /* StartupListTableViewController.swift */,
 				7271FA8B20ADF26800F0C8DE /* StartupTableViewCell.swift */,
+				72E8363320AE79CC00E95B7C /* SearchedStartupTableViewCell.swift */,
 			);
 			path = Control;
 			sourceTree = "<group>";
@@ -486,6 +489,7 @@
 				72AEA9BB20A74EB800E24C58 /* AuthorizationViewController.swift in Sources */,
 				721F2E5D20ACF8A7005466B1 /* Feedback.swift in Sources */,
 				721F2E5720ACBE6F005466B1 /* TableViewController.swift in Sources */,
+				72E8363420AE79CC00E95B7C /* SearchedStartupTableViewCell.swift in Sources */,
 				721F2E5920ACEE73005466B1 /* ImageManager.swift in Sources */,
 				721F2E4F20AC7EA3005466B1 /* AttributedImageView.swift in Sources */,
 				724936DD20AB79A300E969D4 /* Storage.swift in Sources */,

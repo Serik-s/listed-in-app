@@ -8,91 +8,108 @@
 
 import UIKit
 
-class SearchTableViewController: UITableViewController {
+private struct Constants {
+    static let startupCell = "searched startup"
+    static let detailSegue = "startup_detail"
+}
 
+
+class SearchTableViewController: TableViewController, UITextFieldDelegate {
+    
+    var listOfStartups: [Startup] = []
+    var searchedList: [Startup] = []
+    
+    @IBOutlet weak var searchTextField: UITextField! {
+        didSet {
+            searchTextField.delegate = self
+        }
+    }
+    
+    var searchText: String? {
+        didSet {
+            searchTextField?.text = searchText
+            searchTextField?.resignFirstResponder()
+//            lastTwitterRequest = nil                // REFRESHING
+//            tweets.removeAll()
+//            tableView.reloadData()
+//            searchForStartup()
+            title = searchText
+        }
+    }
+    
+    
+    private func searchForStartup() {
+        for startup in listOfStartups {
+            if searchText?.lowercased() == startup.name.lowercased() {
+                searchedList.append(startup)
+            }
+        }
+    }
+    
+    private func configureTableView() {
+        tableView.tableFooterView = UIView()
+    }
+    
+    private func getAllStartups() {
+        Startup.getStartupList() { allStartups, message in
+            if message == nil {
+                for startup in allStartups! {
+                    self.listOfStartups.append(startup)
+                }
+                self.tableView.reloadData()
+            } else {
+                self.showAlert(with: .error, message: message)
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        configureTableView()
+        getAllStartups()
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    
+    @IBAction func refresh(_ sender: UIRefreshControl) {
+        searchForStartup()
     }
-
-    // MARK: - Table view data source
+    
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 3
     }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return listOfStartups.count
     }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
+    override func tableView(_ tableView: UITableView,
+                            cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.startupCell,
+                                                 for: indexPath) as! SearchedStartupTableViewCell
+        
+        let startup = listOfStartups[indexPath.item]
+        cell.info = startup
+        
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
+//    override func tableView(_ tableView: UITableView,
+//                            didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: indexPath, animated: true)
+//        performSegue(withIdentifier: Constants.detailSegue, sender: tableView)
+//
+//    }
+    
+    
+    
 
 }
